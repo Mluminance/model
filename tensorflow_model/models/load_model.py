@@ -11,7 +11,7 @@ import sys
 # inputData = np.array([4,9,5,9.5,2.3,3.4,0,45])
 
 
-def runDaylightPrediction(sideA,sideB,sideC,sideD,wWidth,wHeight,Orient,area):
+def runDaylightPrediction(sideA,sideB,sideC,sideD,wWidth,wHeight,orient,area):
 
     json_file = open('DA_dnn_10-4.json', 'r')
     print(json_file)
@@ -25,7 +25,7 @@ def runDaylightPrediction(sideA,sideB,sideC,sideD,wWidth,wHeight,Orient,area):
     loaded_model.load_weights('DA_dnn_10-4.h5')
     loaded_model.summary() 
 
-    inputData = np.array([sideA,sideB,sideC,sideD,wWidth,wHeight,Orient,area])
+    inputData = np.array([sideA,sideB,sideC,sideD,wWidth,wHeight,orient,area])
 
     prediction = loaded_model.predict( np.expand_dims(inputData, axis=0) )[0][0] 
 

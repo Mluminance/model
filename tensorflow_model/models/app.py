@@ -2,6 +2,7 @@ from flask import Flask
 import ghhops_server as hs
 import rhino3dm as rdm
 import math
+from load_model import runDaylightPrediction
 
 
 
@@ -47,7 +48,7 @@ hops = hs.Hops(app)
         hs.HopsNumber("windowHeight", "Window Height", "Height of Window"),
     ],
     outputs=[
-        hs.HopsString("UDIPrediction", "UDI Prediction", "Prediction of UDI for room")
+        hs.HopsNumber("UDIPrediction", "UDI Prediction", "Prediction of UDI for room")
     ]
 )
 def getUDIPrediction(roomBoundary, windowWidth,windowHeight):
@@ -97,7 +98,9 @@ def getUDIPrediction(roomBoundary, windowWidth,windowHeight):
     n = len(X)
     area = polygonArea(X, Y, n)
 
-    return "hello Karim"
+    prediction = runDaylightPrediction(sideA,sideB,sideC,sideD,windowWidth,windowHeight,orientation,area)
+    print(prediction)
+    return float(prediction)
 
 if __name__ == "__main__":
     app.run()
