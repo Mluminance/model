@@ -2,13 +2,13 @@ from flask import Flask
 import ghhops_server as hs
 import rhino3dm as rdm
 import math
-from load_model import runDaylightPrediction
-
-
+from load_model_rhino import runDaylightPrediction
 
 # utilties:
 # calculate area
 # (X[i], Y[i]) are coordinates of i'th point.
+# This code is contributed by
+# Smitha Dinesh Semwal
 def polygonArea(X, Y, n):
  
     # Initialize area
@@ -22,16 +22,6 @@ def polygonArea(X, Y, n):
  
     # Return absolute value
     return int(abs(area / 2.0))
- 
-# Driver program to test above function
-X = [0, 2, 4]
-Y = [1, 3, 7]
-n = len(X)
-print(polygonArea(X, Y, n))
- 
-# This code is contributed by
-# Smitha Dinesh Semwal
-
 
 # register hops app as middleware
 app = Flask(__name__)
@@ -99,8 +89,20 @@ def getUDIPrediction(roomBoundary, windowWidth,windowHeight):
     area = polygonArea(X, Y, n)
 
     prediction = runDaylightPrediction(sideA,sideB,sideC,sideD,windowWidth,windowHeight,orientation,area)
-    print(prediction)
-    return float(prediction)
+    #print(prediction)
+
+    myPredictions = []
+    for p in prediction:
+        fValue = float(p)
+        if fValue < 0.0:
+            fValue = 0.0
+            myPredictions.append(fValue)
+        else:
+            myPredictions.append(fValue)
+
+    print(orientation)
+
+    return myPredictions
 
 if __name__ == "__main__":
     app.run()
