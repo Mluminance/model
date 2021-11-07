@@ -24,12 +24,36 @@ hops = hs.Hops(app)
         hs.HopsNumber("windowHeight", "Window Height", "Height of Window")
     ],
     outputs=[
-        hs.HopsNumber("C02_Prediction", "C02_Prediction", "CO2 prediction")
+        hs.HopsNumber("UDIPrediction", "UDI Prediction", "Prediction of UDI for room")
     ]
 )
-def getUDIPrediction(constructionType,buildingType,location,area,floorCount):
+def getUDIPrediction(roomBoundary: rdm.PolylineCurve, windowWidth: float,windowHeight: float):
+
+    #convert to polyline to be able to measure distances
+
+    myPolyline = roomBoundary.ToPolyline()
+    # my points
+    point0: rdm.Point3d = myPolyline[0]
+    point1: rdm.Point3d = myPolyline[1]
+    point2: rdm.Point3d = myPolyline[2]
+    point3: rdm.Point3d = myPolyline[3]
+
+    # calculating distances
+    sideA = point0.DistanceTo(point1)
+    sideB = point1.DistanceTo(point2)
+    sideC = point2.DistanceTo(point3)
+    sideD = point3.DistanceTo(point0)
+
+    # calculate orientation
+    
+
+
+
+
+    # get all 4 lengths of roomBoundary
+
     # fetch Prediction data from myML
-    fetchedPrediction = myMl.RunPredictionOp1(constructionType,buildingType,location,area,floorCount)
+    fetchedPrediction = myMl.RunPredictionOp1(sideA,sideB,sideC,sideD,windowWidth,windowHeight)
     print("prediction done!")
     print("fetched prediction data")
     return fetchedPrediction
