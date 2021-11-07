@@ -5,6 +5,7 @@ import numpy as np
 import os
 import json
 import sys
+from tensorflow.keras.models import model_from_json
 
 #path = os.path.join(sys.path[0], "log\DA_dnn_10-4.json")
 #print(path)
