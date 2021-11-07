@@ -60,25 +60,3 @@ def runDaylightPrediction(sideA,sideB,sideC,sideD,wWidth,wHeight,orient,area):
 
     return list(output)
     
-
-"""
-def runDaylightPrediction(sideA,sideB,sideC,sideD,wWidth,wHeight,orient,area):
-
-    json_file = open('DA_dnn_10-4.json', 'r')
-    print(json_file)
-
-    loaded_model_json = json_file.read()
-    print(loaded_model_json)
-    json_file.close()
-
-    # loading model 
-    loaded_model = tf.keras.models.model_from_json(loaded_model_json)
-    loaded_model.load_weights('DA_dnn_10-4.h5')
-    loaded_model.summary() 
-
-    inputData = np.array([sideA,sideB,sideC,sideD,wWidth,wHeight,orient,area])
-
-    prediction = loaded_model.predict( np.expand_dims(inputData, axis=0) )[0][0] 
-
-    return prediction
-"""
