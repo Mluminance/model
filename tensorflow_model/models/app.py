@@ -5,7 +5,32 @@ import math
 
 
 
-#import load_model as lm
+# utilties:
+# calculate area
+# (X[i], Y[i]) are coordinates of i'th point.
+def polygonArea(X, Y, n):
+ 
+    # Initialize area
+    area = 0.0
+ 
+    # Calculate value of shoelace formula
+    j = n - 1
+    for i in range(0,n):
+        area += (X[j] + X[i]) * (Y[j] - Y[i])
+        j = i   # j is previous vertex to i
+ 
+    # Return absolute value
+    return int(abs(area / 2.0))
+ 
+# Driver program to test above function
+X = [0, 2, 4]
+Y = [1, 3, 7]
+n = len(X)
+print(polygonArea(X, Y, n))
+ 
+# This code is contributed by
+# Smitha Dinesh Semwal
+
 
 # register hops app as middleware
 app = Flask(__name__)
@@ -57,25 +82,20 @@ def getUDIPrediction(roomBoundary, windowWidth,windowHeight):
     radAngle = math.atan2(fVector.X-nVector.X, fVector.Y-nVector.Y) - math.pi*0.5
     degAngle = abs(math.degrees(radAngle))
 
-    #print(degAngle)
-    #print((radAngle))
-
     if degAngle <= 180 and degAngle >= 90:
-        myAngle = abs(degAngle - 180)
+        orientation = abs(degAngle - 180)
     elif degAngle <= 90 and degAngle >= 0 and radAngle < 0:
-        myAngle = abs(degAngle - 180)
+        orientation = abs(degAngle - 180)
     elif degAngle <= 90 and degAngle >= 0 and radAngle > 0:
-        myAngle = degAngle + 180
+        orientation = degAngle + 180
     elif degAngle  <= 270 and degAngle >= 180:
-        myAngle = (360 - degAngle) + 180
+        orientation = (360 - degAngle) + 180
 
-    print("this is my starting angle")
-    print(degAngle)
-    #print(radAngle)
-    print("this is my orientation")
-    print(myAngle)
-
-    #print("this is a test")
+    # calcute area:
+    X = [point0.X, point1.X, point2.X, point3.X]
+    Y = [point0.Y, point1.Y, point2.Y, point3.Y]
+    n = len(X)
+    area = polygonArea(X, Y, n)
 
     return "hello Karim"
 
