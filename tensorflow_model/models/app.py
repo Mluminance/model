@@ -1,13 +1,10 @@
 from flask import Flask
 import ghhops_server as hs
-import tensorflow as tf
-import matplotlib.pyplot as plt
-import pandas as pd
-import numpy as np
 import rhino3dm as rdm
 
 
-import load_model as lm
+
+#import load_model as lm
 
 # register hops app as middleware
 app = Flask(__name__)
@@ -19,20 +16,21 @@ hops = hs.Hops(app)
     description="Predicts the UDI of a given room object",
     #icon="learncarbon_logo_without_text.png",
     inputs=[
-        hs.HopsCurve("roomBoundary", "Room Boundary Curve", "Closed curve representing the room boundary"),
-        hs.HopsNumber("windowWidth", "windowWidth", "Width of Window"),
-        hs.HopsNumber("windowHeight", "Window Height", "Height of Window")
+        hs.HopsNumber("roomBoundary", "Room Boundary Curve", "Closed curve representing the room boundary"),
+        hs.HopsNumber("windowWidth", "Window Width", "Width of Window"),
+        hs.HopsNumber("windowHeight", "Window Height", "Height of Window"),
     ],
     outputs=[
-        hs.HopsNumber("UDIPrediction", "UDI Prediction", "Prediction of UDI for room")
+        hs.HopsString("UDIPrediction", "UDI Prediction", "Prediction of UDI for room")
     ]
 )
-def getUDIPrediction(roomBoundary: rdm.PolylineCurve, windowWidth: float,windowHeight: float):
+def getUDIPrediction(roomBoundary, windowWidth,windowHeight):
 
     #convert to polyline to be able to measure distances
 
-    myPolyline = roomBoundary.ToPolyline()
+    #myPolyline = roomBoundary.ToPolyline()
     # my points
+    """
     point0: rdm.Point3d = myPolyline[0]
     point1: rdm.Point3d = myPolyline[1]
     point2: rdm.Point3d = myPolyline[2]
@@ -43,17 +41,15 @@ def getUDIPrediction(roomBoundary: rdm.PolylineCurve, windowWidth: float,windowH
     sideB = point1.DistanceTo(point2)
     sideC = point2.DistanceTo(point3)
     sideD = point3.DistanceTo(point0)
+    """
 
-    # calculate orientation
+    # calculating orientation
+    # get first vector
+    #fVector: rdm.Vector3d = point1 - point0
     
+    print("this is a test")
+    
+    return "hello Karim"
 
-
-
-
-    # get all 4 lengths of roomBoundary
-
-    # fetch Prediction data from myML
-    fetchedPrediction = myMl.RunPredictionOp1(sideA,sideB,sideC,sideD,windowWidth,windowHeight)
-    print("prediction done!")
-    print("fetched prediction data")
-    return fetchedPrediction
+if __name__ == "__main__":
+    app.run()
