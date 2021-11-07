@@ -99,6 +99,7 @@ def getUDIPrediction(roomBoundary, windowWidth,windowHeight):
             myPredictions.append(fValue)
         else:
             myPredictions.append(fValue)
+    
 
     print(orientation)
 
