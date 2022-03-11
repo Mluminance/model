@@ -52,7 +52,7 @@ def runDaylightPrediction(sideA,sideB,sideC,sideD,wWidth,wHeight,orient,area):
     # predict input array, returns a 4D vector of size (1, 30, 31, 1)
     test_pred = loaded_model.predict(input_data)
     test_pred = test_pred.reshape(30,31)
-    test_pred = np.flipud(test_pred)
+    #test_pred = np.flipud(test_pred)
     #test_pred = np.fliplr(test_pred)
 
     # reshape to 1D vector for honeybee to recolor mesh
