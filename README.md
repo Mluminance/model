@@ -1,6 +1,10 @@
 # MLuminance
+
+
 Instant daylight autonomy generation for a single room with one window located in Copenhagen.
 Winner of the "Best Overall Hack" at the AEC Tech Hackathon 2021
+
+
 ![InstantDA](https://github.com/Mluminance/model/blob/main/resources/images/Readme_img/InstantDA.gif)
 
 ## Running the instant daylighting model
